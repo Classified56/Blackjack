@@ -1,27 +1,36 @@
 
 public class Card
 	{
-		private char suit;
+		private String suit;
 		private int value;
-		private 
-		public Card(char s, char v)
+		private String face;
+		public Card(String s, int v, String f)
 			{
 				suit = s;
 				value = v;
+				face = f;
 			}
-		public char getSuit()
+		public String getFace()
+			{
+				return face;
+			}
+		public void setFace(String face)
+			{
+				this.face = face;
+			}
+		public String getSuit()
 			{
 				return suit;
 			}
-		public void setSuit(char suit)
+		public void setSuit(String suit)
 			{
 				this.suit = suit;
 			}
-		public char getValue()
+		public int getValue()
 			{
 				return value;
 			}
-		public void setValue(char value)
+		public void setValue(int value)
 			{
 				this.value = value;
 			}

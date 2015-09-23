@@ -4,49 +4,77 @@ import java.util.Collections;
 public class Deck
 	{
 		private ArrayList<Card> deck = new ArrayList<Card>();
-		public Deck(ArrayList nDeck)
+		public Deck()
 			{
+				int value = 0;
+				String face = "";
+				String suit = "";
 				for(int i = 65; i < 69; i++)
 					{
-						char suit = 0;
-						char value = 0;
+						int suitSet = 68 - i;
 						for(int j = 1; j <= 13; j++)
 							{
 								switch(j)
 								{
 									case 1:
-										value = 'A';
+										value = 11;
+										face = "A";
 										break;
+									
 									case 11: 
-										value = 'J';
+										face = "J";
+										value = 10;
 										break;
 									case 12: 
-										value = 'Q';
+										face = "Q";
+										value = 10;
 										break;
 									case 13: 
-										value = 'K';
+										face = "K";
+										value = 10;
 										break;
 									default:
-										value = (char)(j + 48);
+										face = j;
+										value = j;
 										break;
 								}
+								switch(suitSet)
+									{
+										case 1:
+											suit = "Hearts";
+											break;
+										case 2:
+											suit = "Spades";
+											break;
+										case 3:
+											suit = "Diamonds";
+											break;
+										case 4:
+											suit = "Clubs";
+											break;
+									}
+								deck.add(new Card(suit, value, face));
 							}
-						deck.add(new Card(suit, value));
 					}
-				nDeck = deck;
 			}
-		public ArrayList<Card> getDeck()
+		public Card getCard(int spot)
 			{
-				return deck;
+				return deck.get(spot);
 			}
-		public void setDeck(ArrayList<Card> deck)
+		public void setCard(int spot, String suit, int value, String face)
 			{
-				this.deck = deck;
+				deck.get(spot).setSuit(suit);
+				deck.get(spot).setValue(value);
+				deck.get(spot).setFace(face);
 			}
 		public ArrayList shuffleDeck(ArrayList d)
 			{
 				Collections.shuffle(d);
 				return d;
+			}
+		public int size()
+			{
+				return deck.size();
 			}
 
 	}
