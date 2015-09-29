@@ -6,85 +6,37 @@ public class Deck
 		private ArrayList<Card> deck = new ArrayList<Card>();
 		public Deck()
 			{
-				int value = 0;
-				String face = "";
 				String suit = "";
 				for(int i = 0; i < 4; i++)
 					{
-						for(int j = 1; j <= 13; j++)
+						switch(i)
 							{
-								switch(j)
-									{
-										case 1:
-											value = 11;
-											face = "A";
-											break;
-										case 2:
-											face = "2";
-											value = j;
-											break;
-										case 3:
-											face = "3";
-											value = j;
-											break;
-										case 4:
-											face = "4";
-											value = j;
-											break;
-										case 5:
-											face = "5";
-											value = j;
-											break;
-										case 6:
-											face = "6";
-											value = j;
-											break;
-										case 7:
-											face = "7";
-											value = j;
-											break;
-										case 8:
-											face = "8";
-											value = j;
-											break;
-										case 9:
-											face = "9";
-											value = j;
-											break;
-										case 10:
-											face = "10";
-											value = j;
-											break;
-										case 11: 
-											face = "J";
-											value = 10;
-											break;
-										case 12: 
-											face = "Q";
-											value = 10;
-											break;
-										case 13: 
-											face = "K";
-											value = 10;
-											break;
-									}
-								switch(i)
-									{
-										case 0:
-											suit = "Hearts";
-											break;
-										case 1:
-											suit = "Spades";
-											break;
-										case 2:
-											suit = "Diamonds";
-											break;
-										case 3:
-											suit = "Clubs";
-											break;
-									}
-								deck.add(new Card(suit, value, face));
+								case 0:
+									suit = "Hearts";
+									break;
+								case 1:
+									suit = "Spades";
+									break;
+								case 2:
+									suit = "Diamonds";
+									break;
+								case 3:
+									suit = "Clubs";
+									break;
 							}
+						deck.add(new Card(suit, 2, "2"));
+						deck.add(new Card(suit, 3, "3"));
+						deck.add(new Card(suit, 4, "4"));
+						deck.add(new Card(suit, 5, "5"));
+						deck.add(new Card(suit, 6, "6"));
+						deck.add(new Card(suit, 7, "7"));
+						deck.add(new Card(suit, 8, "8"));
+						deck.add(new Card(suit, 9, "9"));
+						deck.add(new Card(suit, 10, "10"));
+						deck.add(new Card(suit, 10, "J"));
+						deck.add(new Card(suit, 10, "Q"));
+						deck.add(new Card(suit, 10, "K"));
+						deck.add(new Card(suit, 11, "A"));
 					}
 			}
 		public ArrayList<Card> addDecks(int times)
@@ -118,10 +70,6 @@ public class Deck
 			{
 				Collections.shuffle(deck);
 				return deck;
-			}
-		public void addCard(Card one)
-			{
-				deck.add(one);
 			}
 		public int size()
 			{

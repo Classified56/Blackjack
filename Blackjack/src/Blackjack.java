@@ -7,12 +7,15 @@ public class Blackjack
 				shoe.addDecks(2);
 				Player joe = new Player(1000);
 				shoe.shuffleDeck();
-				do
-					{
-						joe.addCard(shoe.drawCard());
-						joe.printHand();
-					}
-				while(joe.getHandValue() < 22);
+				joe.setBet(50);
+				joe.drawHand(shoe);
+				joe.printHand();
+				System.out.println(joe.getHandValue());
+				joe.addCard(shoe.drawCard());
+				joe.printHand();
+				System.out.println(joe.getHandValue());
+				joe.winsHand();
+				System.out.println(joe.getBank());
 			}
 		public static void printDeck(Deck in)
 			{
