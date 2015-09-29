@@ -87,9 +87,22 @@ public class Deck
 							}
 					}
 			}
-		public Card drawCard(int spot)
+		public ArrayList<Card> addDecks(int times)
 			{
-				return deck.get(spot);
+				ArrayList<Card> tempDeck = new ArrayList<Card>();
+				tempDeck.addAll(deck);
+				for(int i = 0; i < times; i++)
+					{
+						deck.addAll(tempDeck);
+					}
+				return deck;
+			}
+		public Card drawCard()
+			{
+				Card temp = deck.get(0);
+				deck.remove(0);
+				deck.add(temp);
+				return temp;
 			}
 		public void removeCard(int spot)
 			{
