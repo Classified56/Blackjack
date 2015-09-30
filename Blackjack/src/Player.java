@@ -5,6 +5,7 @@ public class Player
 		private int bank;
 		private int bet;
 		private int handValue;
+		private int numOfAces;
 		private ArrayList<Card> hand = new ArrayList<Card>();
 		
 		public Player(int b)
@@ -12,53 +13,30 @@ public class Player
 				bank = b;
 				bet = 0;
 				handValue = 0;
+				numOfAces = 0;
 			}
 		public void drawHand(Deck in)
 			{
 				for(int i = 0; i < 2; i++)
 					{
 						Card temp = in.drawCard();
+						if(temp.getValue() == 11)
+							numOfAces++;
 						hand.add(temp);
 						handValue += temp.getValue();
 					}
 			}
 		public void doubleDown(Card in)
 			{
-				
+				bank -= bet;
+				bet *= 2;
+				hand.add(in);
 			}
 		public void addCard(Card in)
 			{
+				if(in.getValue() + handValue > 21 && numOfAces > 0)
+					handValue -= 10;
 				hand.add(in);
-				if(in.getValue() + handValue > 21)
-					{
-						int aceSpot;
-						String suit;
-						for(int i = 0; i < 4; i++)
-							{
-								switch(i)
-								{
-									case 0:
-										suit = "Hearts";
-										break;
-									case 1:
-										suit = "Spades";
-										break;
-									case 2:
-										suit = "Diamonds";
-										break;
-									case 3:
-										suit = "Clubs";
-										break;
-								}
-								Card compareCard = new Card(suit, 11, "A");
-								aceSpot = hand.indexOf(compareCard);
-								if(aceSpot >= 0)
-									{
-										hand.get(aceSpot).setValue(1);
-										break;
-									}
-							}
-					}
 				handValue += in.getValue();
 			}
 		public int getBank()
@@ -70,6 +48,7 @@ public class Player
 				bank += bet;
 				bet = 0;
 				handValue = 0;
+				numOfAces = 0;
 				hand.removeAll(hand);
 			}
 		public void losesHand()
@@ -77,6 +56,7 @@ public class Player
 				bank -= bet;
 				bet = 0;
 				handValue = 0;
+				numOfAces = 0;
 				hand.removeAll(hand);
 			}
 		public int getBet()
@@ -86,6 +66,7 @@ public class Player
 		public void setBet(int bet)
 			{
 				this.bet = bet;
+				bank -= bet;
 			}
 		public int getHandValue()
 			{
@@ -98,5 +79,6 @@ public class Player
 						System.out.print(hand.get(i).getSuit() + " ");
 						System.out.println(hand.get(i).getFace());
 					}
+				System.out.println("You have " + handValue);
 			}
 	}
