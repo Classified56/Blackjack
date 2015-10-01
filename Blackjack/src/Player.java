@@ -20,13 +20,17 @@ public class Player
 				bank -= bet;
 				bet *= 2;
 				hand.add(in);
+				handValue += in.getValue();
 			}
 		public void addCard(Card in)
 			{
 				if(in.getValue() == 11)
 					numOfAces++;
 				if(in.getValue() + handValue > 21 && numOfAces > 0)
-					handValue -= 10;
+					{
+						handValue -= 10;
+						numOfAces--;
+					}
 				hand.add(in);
 				handValue += in.getValue();
 			}
@@ -85,6 +89,10 @@ public class Player
 		public int getHandValue()
 			{
 				return handValue;
+			}
+		public void setHandValue(int in)
+			{
+				handValue = in;
 			}
 		public void printHand()
 			{

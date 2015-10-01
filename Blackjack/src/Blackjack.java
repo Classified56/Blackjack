@@ -13,7 +13,7 @@ public class Blackjack
 				shoe.shuffleDeck();
 				shoe.drawCard();
 				ArrayList<Player> table = new ArrayList<Player>();
-				System.out.print("How many players would you like to play as? ");
+				System.out.println("How many players would you like to play as? \nEach player will start with 1000. ");
 				int numPlayers = numUserInput.nextInt();
 				for(int i = 0; i < numPlayers; i++)
 					table.add(new Player(1000));
@@ -58,10 +58,12 @@ public class Blackjack
 								int turnCounter = 0;
 								if(table.get(i).getHandValue() == 21)
 									{
-										System.out.println("Blackjack! Winner winner chicken dinner!");
+										System.out.println("Player " + (i + 1) + "! Blackjack! Winner winner chicken dinner!");
 										table.get(i).setBank(table.get(i).getBank() + table.get(i).getBet());
 										table.get(i).winsHand();
 									}
+								else
+									{
 								while(going)
 									{
 										table.get(i).printHand();
@@ -84,6 +86,7 @@ public class Blackjack
 												table.get(i).removeCard(1);
 												newPlayers.add(i + 1);
 												table.get(i).setBank(table.get(i).getBank() - table.get(i).getBet());
+												table.get(i).setHandValue(table.get(i).getCard(0).getValue());
 												table.add(i + 1, new Player(table.get(i).getBet()));
 												table.get(i + 1).setBet(table.get(i).getBet());
 												table.get(i + 1).addCard(newHand);
@@ -117,12 +120,13 @@ public class Blackjack
 											}
 										turnCounter++;
 									}
+									}
 							}
 						//dealer plays
 						house.printFull();
 						while(house.getHandValue() < 17)
 							{
-								System.out.println();
+								System.out.println("");
 								house.addCard(shoe.drawCard());
 								house.printFull();
 								if(house.getHandValue() > 21)
@@ -168,11 +172,13 @@ public class Blackjack
 								//has to be backwards to not interfere with the placement of the temporary players.
 								for(int x = newPlayers.size() - 1; x >= 0; x--)
 									{
+										System.out.println("After splits, player " + (x + 1) + " has " + table.get(newPlayers.get(x) - 1).getBank() + " in their bank. ");
 										table.remove(newPlayers.get(x));
 									}
 							}
 						
 						//choice to end game
+						house.resetHand();
 						System.out.print("\nAnother hand? (yes or no) ");
 						String choice = strUserInput.nextLine();
 						if(choice.equals("no"))
