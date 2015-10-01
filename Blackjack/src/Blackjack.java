@@ -5,48 +5,18 @@ public class Blackjack
 	{
 		static Scanner numUserInput = new Scanner(System.in);
 		static Scanner strUserInput = new Scanner(System.in);
+		static ArrayList<Player> table = new ArrayList<Player>();
+		static Deck shoe = new Deck();
+		static Dealer house = new Dealer();
 		public static void main(String[] args)
 			{
-				//starts game with x amount of players
-				Deck shoe = new Deck();
-				shoe.addDecks(3);
-				shoe.shuffleDeck();
-				shoe.drawCard();
-				ArrayList<Player> table = new ArrayList<Player>();
-				System.out.println("How many players would you like to play as? \nEach player will start with 1000. ");
-				int numPlayers = numUserInput.nextInt();
-				for(int i = 0; i < numPlayers; i++)
-					table.add(new Player(1000));
-				Dealer house = new Dealer();
+				setNumOfPlayers();
 				
 				//game start
 				boolean hot = true;
 				while(hot)
 					{
-						//set bets
-						for(int i = 0; i < table.size(); i++)
-							{
-								System.out.print("Bet for Player " + (i + 1) + "? ");
-								int bet = numUserInput.nextInt();
-								table.get(i).setBet(bet);
-							}
-						
-						//deals out all hands
-						for(int j = 0; j < 2; j++)
-							{
-								for(int i = 0; i < table.size(); i++)
-									{
-										table.get(i).addCard(shoe.drawCard());
-									}
-								house.addCard(shoe.drawCard());
-							}
-						for(int i = 0; i < table.size(); i++)
-							{
-								System.out.println("Player " + (i + 1));
-								table.get(i).printHand();
-								System.out.println("");
-							}
-						house.printHalf();
+						setBets();
 						
 						//each player plays
 						ArrayList<Integer> newPlayers = new ArrayList<Integer>();
@@ -191,6 +161,45 @@ public class Blackjack
 				strUserInput.close();
 			}
 		
+		//starts game with x amount of players
+		public static void setNumOfPlayers()
+			{
+				shoe.addDecks(3);
+				shoe.shuffleDeck();
+				shoe.drawCard();
+				System.out.println("How many players would you like to play as? \nEach player will start with 1000. ");
+				int numPlayers = numUserInput.nextInt();
+				for(int i = 0; i < numPlayers; i++)
+					table.add(new Player(1000));
+			}
+		
+		//set bets
+		public static void setBets()
+			{
+				for(int i = 0; i < table.size(); i++)
+					{
+						System.out.print("Bet for Player " + (i + 1) + "? ");
+						int bet = numUserInput.nextInt();
+						table.get(i).setBet(bet);
+					}
+				
+				//deals out all hands
+				for(int j = 0; j < 2; j++)
+					{
+						for(int i = 0; i < table.size(); i++)
+							{
+								table.get(i).addCard(shoe.drawCard());
+							}
+						house.addCard(shoe.drawCard());
+					}
+				for(int i = 0; i < table.size(); i++)
+					{
+						System.out.println("Player " + (i + 1));
+						table.get(i).printHand();
+						System.out.println("");
+					}
+				house.printHalf();
+			}
 		public static void printDeck(Deck in)
 			{
 				for(int i = 0; i < in.size(); i++)
