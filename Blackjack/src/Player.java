@@ -15,17 +15,6 @@ public class Player
 				handValue = 0;
 				numOfAces = 0;
 			}
-		public void drawHand(Deck in)
-			{
-				for(int i = 0; i < 2; i++)
-					{
-						Card temp = in.drawCard();
-						if(temp.getValue() == 11)
-							numOfAces++;
-						hand.add(temp);
-						handValue += temp.getValue();
-					}
-			}
 		public void doubleDown(Card in)
 			{
 				bank -= bet;
@@ -34,10 +23,24 @@ public class Player
 			}
 		public void addCard(Card in)
 			{
+				if(in.getValue() == 11)
+					numOfAces++;
 				if(in.getValue() + handValue > 21 && numOfAces > 0)
 					handValue -= 10;
 				hand.add(in);
 				handValue += in.getValue();
+			}
+		public Card getCard(int in)
+			{
+				return hand.get(in);
+			}
+		public void removeCard(int in)
+			{
+				hand.remove(in);
+			}
+		public String getCardFace(int in)
+			{
+				return hand.get(in).getFace();
 			}
 		public int getBank()
 			{
@@ -45,7 +48,7 @@ public class Player
 			}
 		public void winsHand()
 			{
-				bank += bet;
+				bank += (bet * 2);
 				bet = 0;
 				handValue = 0;
 				numOfAces = 0;
@@ -53,7 +56,14 @@ public class Player
 			}
 		public void losesHand()
 			{
-				bank -= bet;
+				bet = 0;
+				handValue = 0;
+				numOfAces = 0;
+				hand.removeAll(hand);
+			}
+		public void pushesHand()
+			{
+				bank += bet;
 				bet = 0;
 				handValue = 0;
 				numOfAces = 0;
@@ -68,6 +78,10 @@ public class Player
 				this.bet = bet;
 				bank -= bet;
 			}
+		public void setBank(int bank)
+			{
+				this.bank = bank;
+			}
 		public int getHandValue()
 			{
 				return handValue;
@@ -79,6 +93,5 @@ public class Player
 						System.out.print(hand.get(i).getSuit() + " ");
 						System.out.println(hand.get(i).getFace());
 					}
-				System.out.println("You have " + handValue);
 			}
 	}

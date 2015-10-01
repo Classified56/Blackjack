@@ -24,7 +24,7 @@ public class Dealer
 			}
 		public void printHalf()
 			{
-				System.out.print(hand.get(0).getSuit() + " " + hand.get(0).getFace());
+				System.out.println("Dealer shows " + hand.get(0).getSuit() + " " + hand.get(0).getFace());
 			}
 		public void printFull()
 			{
